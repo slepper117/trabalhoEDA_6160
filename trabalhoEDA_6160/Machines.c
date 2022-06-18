@@ -6,6 +6,7 @@
  * \date   April 2022
  *********************************************************************/
 
+#pragma warning(disable : 4996)
 #include "Machines.h"
 
 /**
@@ -17,67 +18,146 @@
  */
 Machine* NewMachine(int codMachine, int exeTime) {
 	Machine* create = (Machine*)malloc(sizeof(Machine));
-	create->cod = codMachine;
-	create->exeTime = exeTime;
-	return create;
+	if (create) {
+		create->cod = codMachine;
+		create->exeTime = exeTime;
+		return create;
+	}
+	return NULL;
 };
+
+/**
+ * Função para procurar uma máquina dentro de uma Lista de Náquinas.
+ *
+ * \param lm Lista de Máquinas
+ * \param codMachine Código da Máquina
+ * \return
+ */
+ListMachines* SearchMachine(ListMachines* lm, int codMachine) {
+	ListMachines* aux = lm;
+	while (aux) {
+		if (aux->machine.cod == codMachine) return aux;
+		aux = aux->next;
+	}
+	return NULL;
+}
+
+/**
+ * Função para editar uma máquina dentro de uma Lista de Máquinas.
+ *
+ * \param i Lista de Máquinas
+ * \param codMachine Código da Máquina
+ * \param exeTime Tempo de Execução da Máquina
+ * \return
+ */
+ListMachines* EditMachine(ListMachines* lm, int codMachine, int exeTime) {
+	if (lm == NULL) return NULL;
+
+	ListMachines* aux = SearchMachine(lm, codMachine);
+
+	if (aux) {
+		aux->machine.exeTime = exeTime;
+		return aux;
+	}
+
+	return NULL;
+}
 
 /**
  * Função para criar uma Lista de Máquinas.
  * 
- * \param m Máquina para receber 
+ * \param m Máquina a inserir
  * \return 
  */
 ListMachines* NewNodeListMachines(Machine* m) {
 	ListMachines* create = (ListMachines*)malloc(sizeof(ListMachines));
-	create->machines.cod = m->cod;
-	create->machines.exeTime = m->cod;
-	create->next = NULL;
-	return create;
+	if (create) {
+		create->machine.cod = m->cod;
+		create->machine.exeTime = m->cod;
+		create->next = NULL;
+		return create;
+	}
+	return NULL;
 }
 
 /**
  * Função para inserir uma máquina na Lista.
  * 
- * \param l Lista onde irá 
- * \param m Recebe uma struct máqina
+ * \param lm Lista de Máquinas 
+ * \param m Máquina a inserir
  * \return 
  */
-ListMachines* InsertMachineList(ListMachines* l, Machine* m) {
-	if (m == NULL) return l;
+ListMachines* InsertMachineList(ListMachines* lm, Machine* m) {
+	if (m == NULL) return lm;
 	ListMachines* create = NewNodeListMachines(m);
-	if (l == NULL) l = create;
+	if (lm == NULL) lm = create;
 	else {
-		create->next = l;
-		l = create;
+		create->next = lm;
+		lm = create;
 	}
-	return l;
+	return lm;
 }
 
 /**
  * Função para apagar todas as Máquinas.
  * 
- * \param l Lista de Máquinas
+ * \param i Lista de Máquinas
  * \return 
  */
 ListMachines* DeleteMachines(ListMachines* lm) {
 	while (lm != NULL)
 	{
 		ListMachines* aux = lm;
-		lm = lm->next;
+		aux = aux->next;
 		free(aux);
 	}
 	return NULL;
 }
 
 /**
- * Função para mostrar a lista de Máquinas.
+ * Função para listar as Máquinas dentro de uma lista.
  *
- * \param l Recebe uma struct Máquina
+ * \param lm Lista de Máquinas
  */
-void ShowMachines(ListMachines* l) {
-	ListMachines* lm = l;
-	while (lm) {
-		printf("Codigo: %d - Tempo de Execução: %d\n", lm->machines.cod, lm->machines.exeTime);
+void ShowMachines(ListMachines* lm) {
+	ListMachines* aux = lm;
+	while (aux) {
+		printf("Codigo: %d - Tempo de Execução: %d\n", aux->machine.cod, aux->machine.exeTime);
 	}
+}
+
+/**
+ * Função para determinar a máquina com a operação menor.
+ * 
+ * \param lm Lista de Máquinas
+ * \return 
+ */
+int SmMachines(ListMachines* lm) {
+	ListMachines* aux = lm;
+	int sm = 0;
+
+	while (aux) {
+		if (sm < aux->machine.exeTime) sm = aux->machine.exeTime;
+		aux = aux->next; //// Perguntar ao Prof se é necessário
+	}
+
+	return sm;
+}
+
+/**
+ * Função para determinar a máquina com a operação maior.
+ * 
+ * \param lm Lista de Máquinas
+ * \return 
+ */
+int LgMachines(ListMachines* lm) {
+	ListMachines* aux = lm;
+	int lg = 0;
+
+	while (aux) {
+		if (lg < aux->machine.exeTime) lg = aux->machine.exeTime;
+		aux = aux->next; //// Perguntar ao Prof se é necessário
+	}
+
+	return lg;
 }

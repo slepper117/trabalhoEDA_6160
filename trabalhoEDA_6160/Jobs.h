@@ -9,6 +9,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include "Operations.h"
 
 #pragma region Job
 /**
@@ -24,13 +26,13 @@ typedef struct Job {
 Job* NewJob(int codJob);
 #pragma endregion Job
 
-#pragma region Lista Jobs
+#pragma region Lista de Jobs
 /**
  * Estrutura de uma Lista de Jobs.
  */
 typedef struct ListJobs {
 	struct Job job;
-	struct ListJobs* lj;
+	struct ListOperations* lo;
 	struct ListJobs* next;
 }ListJobs;
 
@@ -40,26 +42,37 @@ typedef struct ListJobs {
 ListJobs* NewNodeListJobs(Job* j);
 
 /**
- * Insere dados num Nodo da Lista de Jobs.
+ * Insere um Job na Lista de Jobs.
  */
-ListJobs* InsertListJobs(ListJobs* l, Job* j);
+ListJobs* InsertListJobs(ListJobs* lj, Job* j);
 
 /**
- * Procurar um Job.
+ * Procurar um Job numa Lista.
  */
-ListJobs* SearchJob(ListJobs* i, int codLj);
+ListJobs* SearchJob(ListJobs* lj, int codJob);
+
+/**
+ * Função para editar o tempo de execução de uma maquina num Job.
+ */
+ListJobs* Editjob(ListJobs* lj, int codJob, int codOp, int codMachine, int execTime);
 
 /**
  * Inserir uma operação num Job.
  */
-ListJobs* InsertOperationIntoJob(ListJobs* lj, Operation* o, int codOp);
+ListJobs* InsertOperationIntoJob(ListJobs* lj, Operation* o, int codJob);
 
 /**
  * Mostra Operações num Job.
  */
-void ShowOperationsInJob(ListJobs* i, int codOp);
+void ShowOperationsInJob(ListJobs* lj, int codJob);
 
-#pragma endregion Lista Jobs
+/**
+ * Grava uma Lista de Jobs, as Operações e as Máquinas.
+ */
+bool SaveJobs(ListJobs* lj, char* filename);
 
-
-
+/**
+ * Função para ler os Jobs, Operações e Máquinas.
+ */
+ListJobs* ReadJobs(char* filename);
+#pragma endregion Lista de Jobs

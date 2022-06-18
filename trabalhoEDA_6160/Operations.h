@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "Machines.h"
 
 #pragma region Operação
@@ -20,13 +21,12 @@ typedef struct Operation {
 }Operation;
 
 /**
- * Função para criar uma Operação.
+ * Cria uma nova Operação.
  */
-Operation* NewOperation(int codOperation);
-
+Operation* NewOperation(int codOp);
 #pragma endregion Operação
 
-#pragma region Lista Operação
+#pragma region Lista de Operações
 /**
  * Lista de Operações.
  */
@@ -42,37 +42,62 @@ typedef struct ListOperations {
 ListOperations* NewNodeListOperations(Operation* o);
 
 /**
- * Insere Dados numa Operação.
+ * Insere uma Operação.
  */
-ListOperations* InsertListOperations(ListOperations* l, Operation* o);
+ListOperations* InsertListOperations(ListOperations* lo, Operation* o);
 
 /**
  * Procura uma Operação na Lista.
  */
-ListOperations* SearchOperation(ListOperations* i, int codOp);
+ListOperations* SearchOperation(ListOperations* lo, int codOp);
 
 /**
- * Apaga uma Operação.
+ * Função para editar o tempo de execução de uma maquina numa operação.
  */
-ListOperations* DeleteOperation(ListOperations* i, int CodOp);
+ListOperations* EditOperation(ListOperations* lo, int codOp, int codMachine, int execTime);
 
 /**
- * Insere Máquina numa Operação.
+ * Apaga uma Operação e as Máquinas dela.
+ */
+ListOperations* DeleteOperation(ListOperations* lo, int CodOp);
+
+/**
+ * Insere uma máquina na Operação.
  */
 ListOperations* InsertMachineIntoOperations(ListOperations* lo, Machine* m, int codOp);
 
 /**
- * Mostra as Lista de Operações e as Máquinas de cada Operação.
+ * Mostra a Lista de Operações e as Máquinas de cada Operação.
  */
-void ShowOperations(ListOperations* o);
+void ShowOperations(ListOperations* i);
 
 /**
  * Mostra as Máquinas de uma operação especifica.
  */
-void ShowMachinesInOperation(ListOperations* i, int codOp)
+void ShowMachinesInOperation(ListOperations* i, int codOp);
 
-#pragma endregion Lista Operação
+/**
+ * Grava uma Lista de Operações e as Máquinas.
+ */
+bool SaveOperations(ListOperations* lo, char* filename);
 
+/**
+ * Função para ler uma operação.
+ */
+ListOperations* ReadOperations(char* filename);
 
+/**
+ * Função para verificar o tempo minimo para completar uma lista de operações.
+ */
+int SmOperation(ListOperations* lo);
 
+/**
+ * Função para verificar o tempo máximo para completar uma lista de operações.
+ */
+int LgOperation(ListOperations* lo);
 
+/**
+ * Função para verificar o tempo médio de execução de uma operação.
+ */
+int AvgOperation(ListOperations* lo, int codOp);
+#pragma endregion Lista de Operações
