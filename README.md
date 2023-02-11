@@ -6,16 +6,6 @@ Esta disciplina faz parte do primeiro ano curricular da Licenciatura em Engenhar
 ## Contextualização do Trabalho
 Com a execução deste trabalho, pretende-se a consolidação dos conhecimentos na linguagem de programação C, adquiridos durante as aulas.
 
-Como tal será necessário desenvolver um sistema que permita a gestão de uma loja online.
-
-# trabalhoPOO_6160 - LESI - IPCA
-Projeto desenvolvido para a disciplina de Programação Orientada a Objetos. 
-
-Esta disciplina faz parte do segundo ano curricular da Licenciatura em Engenharia de Sistemas Informáticos.
-
-## Contextualização do Trabalho
-Com a execução deste trabalho, pretende-se a consolidação dos conhecimentos na linguagem de programação C, adquiridos durante as aulas.
-
 A essência deste trabalho reside no desenvolvimento de uma solução digital para o problema de escalonamento denominado Flexible Job Shop Problem (FJSSP). 
 
 A solução a implementar deverá permitir gerar uma proposta de escalonamento para a produção de um produto envolvendo várias operações e a utilização de várias máquinas, minimizando o tempo as unidades de tempo necessário na sua produção (makespan).
